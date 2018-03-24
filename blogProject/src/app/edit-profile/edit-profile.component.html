@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel panel-header">
+        <h3 class="text text-primary" align="center">Edit Profile</h3>
+      </div>
+      <div class="panel panel-body">
+        <form [formGroup]= "userEditForm" (ngSubmit)="onEdit()">
+          <div class="form-group">
+            <input type="name"
+                   placeholder="Enter Name"
+                   formControlName="name"
+                   class="form-control"
+                   [(ngModel)]="name">
+            <span class="text text-danger" *ngIf="userForm.get('name').invalid && (userForm.get('name').dirty || userForm.get('name').touched)">
+              Please Enter Your Name
+            </span>
+          </div>
+          <div class="form-group">
+            <input type="text"
+                   placeholder="Enter Mobile no"
+                   formControlName="mobile"
+                   [(ngModel)]="mobile"
+                   class="form-control">
+
+          </div>
+          <div class="form-group">
+            <label>Profile Pic:</label>
+            <input type="file"
+                   (change)="changeImageEdit($event)"
+                   class="form-control"
+                   id="pic">
+          </div>
+
+          <button class="btn btn-success" type="submit" [disabled]="userForm.invalid">Join Us</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+
+

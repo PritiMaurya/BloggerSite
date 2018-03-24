@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">Blogger</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li routerLinkActive="active" *ngIf="token === null"><a style="cursor: pointer" routerLink="/form">Register</a></li>
+      <li routerLinkActive="active" *ngIf="token != null"><a style="cursor: pointer" routerLink="/editProfile">Edit Detail</a></li>
+      <li routerLinkActive="active" *ngIf="token != null"><a style="cursor: pointer" (click)="logout()">Logout</a></li>
+      <li routerLinkActive="active" *ngIf="token != null"><a style="cursor: pointer" routerLink="/profile">Home</a></li>
+      <li routerLinkActive="active" *ngIf="token === null"><a style="cursor: pointer" routerLink="/login" >login</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="row">
+  <div class="col-md-12" *ngIf="token != null">
+    <h2 align="center" class="text text-primary">Welcome {{service.getProfileData.name}}</h2>
+  </div>
+</div>
+<div class="row container">
+  <div class="col-md-12" *ngIf="token != null">
+    <img src="data:image/jpeg;base64,{{service.getProfileData.pic}}"  align="right" height="100" width="200">
+  </div>
+</div>

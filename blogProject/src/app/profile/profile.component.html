@@ -1,0 +1,32 @@
+
+<br><br>
+<div class="container">
+  <button type="button" class="btn btn-info" (click)="showAddPostDialog()">Add Post</button>
+</div>
+
+
+<br><br>
+<div class="container">
+<table class="table table-bordered">
+  <tr>
+    <th>Status</th>
+    <th>Post Image</th>
+    <th>Delete</th>
+  </tr>
+  <tbody  *ngFor="let sPost of service.allPost">
+  <tr>
+    <td>{{ sPost.status }}</td>
+    <td><img src="data:Image/jpeg;base64,{{sPost.postImg}}" height="50" width="70"> </td>
+    <!--<td><button type="button" style="cursor: pointer" class="btn btn-info btn-sm" (click)="updatePostDialog(sPost._id)">Update Post</button></td>-->
+    <td><button type="button" style="cursor: pointer" class="btn btn-info btn-sm" (click)="deletePost(sPost._id)">Delete Post</button></td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+

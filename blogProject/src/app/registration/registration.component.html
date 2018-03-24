@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel panel-header">
+        <h3 class="text text-primary" align="center">Registration Form</h3>
+      </div>
+      <div class="panel panel-body">
+        <form [formGroup]= "userForm" (ngSubmit)="onRegister()">
+          <div class="form-group">
+              <input type="name"
+              placeholder="Enter Name"
+              formControlName="name" class="form-control">
+            <span class="text text-danger" *ngIf="userForm.get('name').invalid && (userForm.get('name').dirty || userForm.get('name').touched)">
+              Please Enter Your Name
+            </span>
+          </div>
+          <div class="form-group">
+              <input type="text"
+                     placeholder="Enter Mobile no"
+                     formControlName="mobile"
+                     class="form-control">
+
+          </div>
+          <div class="form-group" *ngFor="let gen of genders">
+            <input type="radio"
+                   formControlName="gender"
+                   [value]="gen">{{gen}}
+          </div>
+          <div class="form-group">
+              <input type="text"
+                     placeholder="Enter Email"
+                     formControlName="email"
+                     class="form-control">
+            <span class="text text-danger" *ngIf="userForm.get('email').invalid && (userForm.get('email').dirty || userForm.get('email').touched)">
+              <span *ngIf="userForm.get('email').errors.required">Email is Required</span>
+              <span *ngIf="userForm.get('email').errors.email">Email is not valid</span>
+            </span>
+          </div>
+          <div class="form-group">
+              <input type="password"
+                     placeholder="Enter password"
+                     formControlName="pass"
+                     class="form-control">
+            <span class="text text-danger" *ngIf="userForm.get('pass').invalid && (userForm.get('pass').dirty || userForm.get('pass').touched)">
+              <span *ngIf="userForm.get('pass').errors.required">Password is Required</span>
+              <span *ngIf="userForm.get('pass').errors.minlength">Password length should be greater than 5</span>
+            </span>
+          </div>
+          <div class="form-group">
+              <input type="password"
+                     placeholder="Enter Confirm Password"
+                     class="form-control"
+                     formControlName="cpass">
+            <span class="text text-danger" *ngIf="userForm.get('pass').invalid && (userForm.get('cpass').dirty || userForm.get('pass').touched)">
+              <span *ngIf="userForm.get('cpass') != userForm.get('pass')">Password and confirm password should be match</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label>Profile Pic:</label>
+              <input type="file"
+                     (change)="changeImage($event)"
+                     class="form-control"
+                     id="pic">
+          </div>
+
+          <button class="btn btn-success" type="submit" [disabled]="userForm.invalid">Join Us</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+
