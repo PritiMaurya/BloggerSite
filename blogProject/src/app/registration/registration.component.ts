@@ -60,7 +60,7 @@ export class RegistrationComponent implements OnInit {
       email: this.userForm.get('email').value,
       pic: this.userForm.get('pic').value.value
     }
-    //console.log(this.inserData);
+    // console.log(this.inserData);
     this.service.signUp(this.inserData);
     this.userForm.reset();
   }

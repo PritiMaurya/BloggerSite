@@ -14,14 +14,14 @@ app = express();
 app.use(cors());
 
 
-// app.use(function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', "http://localhost:4200");
-//     res.header('Access-Control-Allow-Credentials', true);
-//     res.header('Access-Control-Expose-Headers',"content-type, cache,X-Custom-header,acesstoken");
-//     res.header("AccessControlAllowMethods", "POST, GET, PUT, DELETE, OPTIONS");
-//     res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers,Origin,Access-Control-Expose-Headers, X-Requested-With, Content-Type, Accept,acesstoken");
-//     next();
-// });
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "http://localhost:4200");
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Expose-Headers',"content-type, cache,X-Custom-header,acesstoken");
+    res.header("AccessControlAllowMethods", "POST, GET, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers,Origin,Access-Control-Expose-Headers, X-Requested-With, Content-Type, Accept,acesstoken");
+    next();
+});
 
 app.use(session({ secret: 'priti123', resave: true, saveUninitialized: true}));
 
@@ -79,7 +79,7 @@ passport.use('login', new localStrategy({
                 return done(null,false);
             }
             console.log("Login Successful");
-            //user.getToken();
+            user.getToken();
             return done(null, user);
         }
     })
@@ -94,6 +94,7 @@ app.post('/login', function(req, res, next) {
     passport.authenticate('login', function(err, user) {
         if (!user) { return res.send(null); }
         if(user){
+            //res.set('token', user.token);
             return res.send(user);
         }
     })(req, res, next);
@@ -157,7 +158,6 @@ app.post('/signup', function(req, res, next) {
     passport.authenticate('signup', function(err, user) {
         if (!user) { return res.send(null); }
         if(user){
-            //console.log(user.token.token);
             return res.send(user);
         }
     })(req, res, next);
@@ -254,6 +254,22 @@ app.get('/deletePost',(req,res)=>{
             res.status(404).send(err);
         }
     )
+});
+
+app.post('/editUser', (req,res)=>{
+    var id= req.query.id;
+    var data = { name: req.body.name,
+        mobile: req.body.mobile,
+        pic: req.body.pic};
+   User.findByIdAndUpdate({_id:id},{$set: data}).then(
+       (data)=>{
+           console.log('update data');
+           res.send(data);
+       },
+       (err)=>{
+           res.send(err);
+       }
+   )
 });
 
 

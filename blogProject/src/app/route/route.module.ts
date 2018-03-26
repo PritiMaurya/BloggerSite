@@ -6,12 +6,16 @@ import {LoginComponent} from "../login/login.component";
 import {ProfileComponent} from "../profile/profile.component";
 import {AuthGuard} from "../auth.guard";
 import {EditProfileComponent} from "../edit-profile/edit-profile.component";
+import {ProfileDataComponent} from "../profile-data/profile-data.component";
 const appRoutes: Routes = [
   {path: 'form', component: RegistrationComponent},
   {path: '', redirectTo: '/form', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard]}];
+  {path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard]},
+  {
+    path: 'profileData', component: ProfileDataComponent, canActivate:[AuthGuard]
+  }];
 @NgModule({
   imports: [
     CommonModule,

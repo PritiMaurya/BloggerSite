@@ -8,14 +8,11 @@ import {Subscription} from "rxjs/Subscription";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   token;
   tokenSub: Subscription;
   constructor(private service: ApiService, private router: Router) {
     this.token = localStorage.getItem('token');
-    if (this.token != null) {
-      this.service.getData();
-    }
   }
 
   ngOnInit() {
@@ -27,10 +24,8 @@ export class HeaderComponent implements OnInit {
     this.service.loginStatus = false;
     this.token = null;
     this.router.navigate(['/login']);
-    this.tokenSub.unsubscribe();
   }
   ngOnDestroy() {
     this.tokenSub.unsubscribe();
   }
-
 }

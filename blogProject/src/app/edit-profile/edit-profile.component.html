@@ -9,20 +9,15 @@
       <div class="panel panel-body">
         <form [formGroup]= "userEditForm" (ngSubmit)="onEdit()">
           <div class="form-group">
-            <input type="name"
+            <input type="text"
                    placeholder="Enter Name"
-                   formControlName="name"
-                   class="form-control"
-                   [(ngModel)]="name">
-            <span class="text text-danger" *ngIf="userForm.get('name').invalid && (userForm.get('name').dirty || userForm.get('name').touched)">
-              Please Enter Your Name
-            </span>
+                   formControlName="pname"
+                   class="form-control">
           </div>
           <div class="form-group">
             <input type="text"
                    placeholder="Enter Mobile no"
                    formControlName="mobile"
-                   [(ngModel)]="mobile"
                    class="form-control">
 
           </div>
@@ -33,8 +28,7 @@
                    class="form-control"
                    id="pic">
           </div>
-
-          <button class="btn btn-success" type="submit" [disabled]="userForm.invalid">Join Us</button>
+          <button class="btn btn-success" type="submit" [disabled]="userEditForm.invalid">Edit</button>
         </form>
       </div>
     </div>

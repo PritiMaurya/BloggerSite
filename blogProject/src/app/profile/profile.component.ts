@@ -9,9 +9,16 @@ import {ConfirmModalComponent} from "../modals/confirm-modal/confirm-modal.compo
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  p: Number = 1
+  getProfileData;
   constructor(private service: ApiService, private dialogService: DialogService) {
-    this.service.getData();
+    this.service.getData().subscribe(
+      (res) => {
+        this.getProfileData = res[0];
+        console.log(this.getProfileData);
+        this.service.selectAllPost(this.getProfileData._id);
+      }
+    );
   }
 
   ngOnInit() {

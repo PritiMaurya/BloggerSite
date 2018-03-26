@@ -74,13 +74,7 @@ export class ApiService {
 
   getData() {
     const token = localStorage.getItem('token');
-    this.http.get(this.baseUrl + '/getData?token=' + token).subscribe(
-      (res) => {
-        this.getProfileData = res[0];
-        console.log(this.getProfileData);
-        this.selectAllPost(this.getProfileData._id);
-      }
-    );
+    return this.http.get(this.baseUrl + '/getData?token=' + token);
   }
 
   addPost(data) {
@@ -89,11 +83,15 @@ export class ApiService {
 
   deletePost(id) {
     this.http.get(this.baseUrl + '/deletePost/?id=' + id).subscribe(
-      (res) => {
+      () => {
         console.log('one post deleted');
         this.selectAllPost(this.getProfileData._id);
       }
     );
+  }
+
+  editProfileData(id, data) {
+    return this.http.post(this.baseUrl + '/editUser?id=' + id, data);
   }
 
   selectAllPost(id) {

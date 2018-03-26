@@ -70,7 +70,8 @@ var postSchema = new mongoose.Schema({
 userSchema.methods.getToken= function () {
     //console.log("token data");
     user1 = this;
-    token1 = jwt.sign(user1._id.toHexString(),"priti7878").toString();
+    var str = user1._id.toHexString() + new Date().toString();
+    token1 = jwt.sign(str, "priti7878").toString();
     user1.token = token1;
     //console.log(user1.token);
     return user1.save().then(

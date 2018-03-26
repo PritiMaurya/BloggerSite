@@ -16,6 +16,8 @@ import {BootstrapModalModule} from "ng2-bootstrap-modal";
 import { DialogModalComponent } from './modals/dialog-modal/dialog-modal.component';
 import { HeaderComponent } from './header/header.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import {NgxPaginationModule} from "ngx-pagination";
+import { ProfileDataComponent } from './profile-data/profile-data.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     ConfirmModalComponent,
     DialogModalComponent,
     HeaderComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ProfileDataComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     RouteModule,
     HttpClientModule,
     BootstrapModalModule,
-    BootstrapModalModule.forRoot({container: document.body})
+    BootstrapModalModule.forRoot({container: document.body}),
+    NgxPaginationModule
   ],
   entryComponents: [
     DialogModalComponent,

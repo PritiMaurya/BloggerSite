@@ -1,3 +1,4 @@
+<app-profile-data></app-profile-data>
 
 <br><br>
 <div class="container">
@@ -13,7 +14,7 @@
     <th>Post Image</th>
     <th>Delete</th>
   </tr>
-  <tbody  *ngFor="let sPost of service.allPost">
+  <tbody  *ngFor="let sPost of service.allPost | paginate: { itemsPerPage: 5, currentPage: p };">
   <tr>
     <td>{{ sPost.status }}</td>
     <td><img src="data:Image/jpeg;base64,{{sPost.postImg}}" height="50" width="70"> </td>
@@ -21,6 +22,8 @@
     <td><button type="button" style="cursor: pointer" class="btn btn-info btn-sm" (click)="deletePost(sPost._id)">Delete Post</button></td>
   </tr>
   </tbody>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
 </table>
 </div>
 
