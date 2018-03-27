@@ -3,10 +3,6 @@ var bodyParser = require('body-parser');
 var {User} = require('./model/User');
 var bcrypt = require('bcrypt');
 var {Post} = require('./model/User');
-//step1 import passport
-var passport = require('passport');
-var localStrategy = require('passport-local').Strategy;
-var session = require('express-session');
 var cors = require('cors');
 
 
@@ -27,9 +23,6 @@ app.use(session({ secret: 'priti123', resave: true, saveUninitialized: true}));
 
 
 
-//step2 initialize it
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -39,21 +32,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 var token;
 
-//step3 serialize and deserialize
-
-passport.serializeUser((user,done)=>{
-    console.log('call serializeUser');
-    //console.log(user);
-    done(null,user);
-});
-
-passport.deserializeUser((user,done)=>{
-    console.log("call deserializeUser");
-    //console.log(user);
-    done(null,user);
-});
-
-//step4 use of passport
 
 passport.use('login', new localStrategy({
     usernameField : 'email',
@@ -85,20 +63,6 @@ passport.use('login', new localStrategy({
     })
 
 }));
-
-//step5 call
-
-
-
-app.post('/login', function(req, res, next) {
-    passport.authenticate('login', function(err, user) {
-        if (!user) { return res.send(null); }
-        if(user){
-            //res.set('token', user.token);
-            return res.send(user);
-        }
-    })(req, res, next);
-});
 
 app.get('/home',(req,res)=>{
     console.log('success');
@@ -204,14 +168,6 @@ app.get('/profile',isLoggedIn,function(req,res){
 });
 
 
-validPassword =  (user,password)=> {
-    return bcrypt.compareSync(password,user.password);
-}
-
-
-createHash = (password)=>{
-    return bcrypt.hashSync(password,bcrypt.genSaltSync(10),null);
-}
 
 app.post('/addPost', (req,res)=>{
     var newPost = new Post({
@@ -273,27 +229,10 @@ app.post('/editUser', (req,res)=>{
 });
 
 
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated())
-    {
-        return next();
-    }
-    res.redirect('/');
-}
-
 app.get('/',(req,res)=>{
     res.send("home");
 });
 
-app.get('/logout',isLoggedIn,(req,res)=>{
-    req.session.destroy();
-    req.logout();
-    //res.redirect('/index');
-});
-
-app.get('/private',isLoggedIn, (req, res) => {
-        res.send("Welcome");
-});
 
 app.listen(3001);
 

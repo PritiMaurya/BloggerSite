@@ -12,7 +12,6 @@ import {Router} from "@angular/router";
 })
 export class EditProfileComponent implements OnInit {
   userEditForm: FormGroup;
-  getProfileData;
   constructor(private service: ApiService, private dialogService: DialogService, private router: Router) {
     this.userEditForm = new FormGroup({
       pname: new FormControl('', Validators.required),
@@ -21,17 +20,11 @@ export class EditProfileComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.service.getData().subscribe(
-      (res) => {
-        this.getProfileData = res[0];
-        this.userEditForm.setValue({
-          pname: this.getProfileData.name,
-          mobile: this.getProfileData.mobile,
-          pic: this.getProfileData.pic
-        });
-      }
-    );
-    // console.log('edit');
+    this.userEditForm.setValue({
+            pname: this.service.getProfileData.name,
+            mobile: this.service.getProfileData.mobile,
+            pic: this.service.getProfileData.pic
+    });
   }
 
   changeImageEdit(event) {
@@ -51,7 +44,7 @@ export class EditProfileComponent implements OnInit {
     this.dialogService.addDialog(ConfirmModalComponent, {title: 'Edit Profile', message: 'Are You sure to update your Profile'}).subscribe(
       (data) => {
         if (data) {
-          this.service.editProfileData(this.getProfileData._id, {name: this.userEditForm.value.pname, mobile: this.userEditForm.value.mobile, pic: this.userEditForm.value.pic.value }).subscribe(
+          this.service.editProfileData(this.service.getProfileData._id, {name: this.userEditForm.value.pname, mobile: this.userEditForm.value.mobile, pic: this.userEditForm.value.pic.value }).subscribe(
             (res) => {
               console.log(res);
               this.router.navigate(['/profile']);

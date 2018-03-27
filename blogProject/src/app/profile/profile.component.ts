@@ -12,13 +12,15 @@ export class ProfileComponent implements OnInit {
   p: Number = 1
   getProfileData;
   constructor(private service: ApiService, private dialogService: DialogService) {
-    this.service.getData().subscribe(
-      (res) => {
-        this.getProfileData = res[0];
-        console.log(this.getProfileData);
-        this.service.selectAllPost(this.getProfileData._id);
-      }
-    );
+    this.service.getData();
+      // .subscribe(
+    //   (res) => {
+    //     console.log('this.getProfileData', res);
+    //     this.getProfileData = res[0];
+    //     console.log(this.getProfileData);
+    //     this.service.selectAllPost(this.getProfileData._id);
+    //   }
+    // );
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 const {mongoose} = require('../db/mongoose');
 const validate = require('mongoose-validator');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+var environment = require('../environment');
 var emailValidator =
     validate({
         validator: 'isEmail',
@@ -71,7 +71,7 @@ userSchema.methods.getToken= function () {
     //console.log("token data");
     user1 = this;
     var str = user1._id.toHexString() + new Date().toString();
-    token1 = jwt.sign(str, "priti7878").toString();
+    token1 = jwt.sign(str, environment.secret).toString();
     user1.token = token1;
     //console.log(user1.token);
     return user1.save().then(

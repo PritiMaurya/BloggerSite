@@ -39,9 +39,12 @@ export class ApiService {
         if (result !== null) {
           console.log('Successfully Login');
           this.result = result;
+          console.log(result);
           localStorage.setItem('token', this.result.token);
           this.token.next(this.result.token);
+          console.log(this.token);
           alert('Successfully Login');
+          this.getData();
           this.errMsg = false;
           this.loginStatus = true;
           this.router.navigate(['/profile']);
@@ -58,12 +61,13 @@ export class ApiService {
 
   checkToken() {
     const token = localStorage.getItem('token');
+    console.log(token);
     return this.http.get(this.baseUrl + '/check?token=' + token).subscribe(
       (res) => {
-        this.data = res;
+        this.data = res[0];
         console.log('auth');
-        console.log(this.data[0].token);
-        if (token === this.data[0].token) {
+        console.log(this.data);
+        if (token === this.data.token) {
           return true;
         } else {
           return false;
@@ -74,7 +78,12 @@ export class ApiService {
 
   getData() {
     const token = localStorage.getItem('token');
-    return this.http.get(this.baseUrl + '/getData?token=' + token);
+    return this.http.get(this.baseUrl + '/getData?token=' + token).subscribe(
+      (res) => {
+        this.getProfileData = res[0];
+        this.selectAllPost(this.getProfileData._id);
+      }
+    );
   }
 
   addPost(data) {

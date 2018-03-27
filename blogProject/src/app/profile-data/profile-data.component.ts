@@ -9,13 +9,7 @@ import {ApiService} from "../api.service";
 export class ProfileDataComponent implements OnInit {
 
   constructor(private service: ApiService) { }
-  getProfileData;
   ngOnInit() {
-    this.service.getData().subscribe(
-      (res) => {
-        this.getProfileData = res[0];
-      }
-    );
   }
 
 }

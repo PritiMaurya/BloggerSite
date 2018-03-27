@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard]},
   {
-    path: 'profileData', component: ProfileDataComponent, canActivate:[AuthGuard]
+    path: 'profileData', component: ProfileDataComponent, canActivate: [AuthGuard]
   }];
 @NgModule({
   imports: [
